@@ -1,16 +1,14 @@
-import os
 import typer
 import pytesseract
 from uuid import uuid4
 from PIL import Image, ImageGrab
+from services import notifier
 
 app = typer.Typer()
-
 
 def get_image_from_clipboard() -> str:
     image = ImageGrab.grabclipboard()
 
-    # TO-DO multi operational system
     if isinstance(image, Image.Image):
         image_path = f'/tmp/{uuid4()}.png'
         image.save(image_path)
@@ -28,18 +26,19 @@ def extract_text_from_image(image_path: str) -> str:
     return result
 
 
-# TODO: command to setup language
 @app.command()
 def get_text_from_image():
     image = get_image_from_clipboard()
     if not image:
         raise Exception("No image found in clipboard")
     
-    text = extract_text_from_image(image)
-    if not text:
+    img_text = extract_text_from_image(image)
+    if not img_text:
         raise Exception("No text found in image")
+        
+    notifier("Hermes", "Image text is available on clipboard")
     
-    print(text)
+    print(img_text)
 
 
 if __name__ == "__main__":
