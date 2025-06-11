@@ -6,11 +6,13 @@ app = typer.Typer()
 
 
 @app.command()
-def textify():
-    """
-    Get text from image (on clipboard) and put response on clipboard
-    """
-    get_text_from_image()
+def text_to_clipboard():
+    get_text_from_image("clipboard")
+
+
+@app.command()
+def text_to_console():
+    get_text_from_image("console")
 
 
 if __name__ == "__main__":
