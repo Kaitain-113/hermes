@@ -29,11 +29,11 @@ def extract_text_from_image(image_path: str) -> str:
 @app.command()
 def get_text_from_image():
     image = get_image_from_clipboard()
-    if not image:
+    if image is None:
         raise Exception("No image found in clipboard")
     
     img_text = extract_text_from_image(image)
-    if not img_text:
+    if img_text is None:
         raise Exception("No text found in image")
         
     notifier("Hermes", "Image text is available on clipboard")
