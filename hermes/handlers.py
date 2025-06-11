@@ -4,6 +4,7 @@ from hermes.media_utils import (
 )
 from hermes.services import notifier, copy_to_clipboard
 
+
 def get_text_from_image():
     image = get_image_from_clipboard()
     if image is None:

@@ -1,6 +1,6 @@
 import typer
 
-from handlers import get_text_from_image
+from hermes.handlers import get_text_from_image
 
 app = typer.Typer()
 

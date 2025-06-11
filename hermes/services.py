@@ -3,7 +3,7 @@ import pyperclip
 
 def notifier(title: str, message: str) -> None:
     notification = Notify()
-    notification.icon = "./resources/notification_icon/clipboard.png"
+    notification.icon = "hermes/resources/notification_icon/clipboard.png"
     notification.title = title
     notification.message = message
     notification.send()
