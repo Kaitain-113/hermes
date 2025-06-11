@@ -2,6 +2,8 @@ import typer
 import pytesseract
 from uuid import uuid4
 from PIL import Image, ImageGrab
+import pyperclip
+
 from services import notifier
 
 app = typer.Typer()
@@ -36,10 +38,9 @@ def get_text_from_image():
     if img_text is None:
         raise Exception("No text found in image")
         
-    notifier("Hermes", "Image text is available on clipboard")
-    
-    print(img_text)
+    pyperclip.copy(img_text)
 
+    notifier("Text processed", "Image text is available on clipboard")
 
 if __name__ == "__main__":
     app()
