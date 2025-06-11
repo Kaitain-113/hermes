@@ -11,3 +11,9 @@ def notifier(title: str, message: str) -> None:
 def copy_to_clipboard(text: str) -> bool:
     pyperclip.copy(text)
     return True
+
+def create_file(file_path: str, text: str) -> bool:
+    with open(file_path, 'x') as f:
+        f.write(text)
+    
+    return True

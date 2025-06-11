@@ -2,10 +2,14 @@ from hermes.media_utils import (
     extract_text_from_image,
     get_image_from_clipboard
 )
-from hermes.services import notifier, copy_to_clipboard
+from hermes.services import (
+    notifier,
+    copy_to_clipboard,
+    create_file
+)
 
 
-def get_text_from_image(output: str):
+def get_text_from_image(output: str, file_path: str):
     image = get_image_from_clipboard()
     if image is None:
         raise Exception("No image found in clipboard")
@@ -25,3 +29,6 @@ def get_text_from_image(output: str):
             print("|" + "< IMAGE TEXT >".center(60, "=") + "|\n")
             print(img_text)
             print("=-=" * 20)
+
+        case "file":
+            create_file(file_path, img_text)
