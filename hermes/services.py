@@ -8,7 +8,7 @@ def notifier(title: str, message: str) -> None:
     notification.message = message
     notification.send()
 
-def copy_to_clipboard(text: str) -> bool:
+def copy_content_to_clipboard(text: str) -> bool:
     pyperclip.copy(text)
     return True
 

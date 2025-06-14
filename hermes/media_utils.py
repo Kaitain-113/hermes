@@ -13,7 +13,7 @@ def get_image_from_clipboard() -> str:
     return None
 
 
-def extract_text_from_image(image_path: str) -> str:
+def ocr(image_path: str) -> str:
     if not image_path:
         return None
 
@@ -21,3 +21,15 @@ def extract_text_from_image(image_path: str) -> str:
 
     result = pytesseract.image_to_string(img)
     return result
+
+
+def get_text_from_image():
+    image = get_image_from_clipboard()
+    if image is None:
+        raise Exception("No image found in clipboard")
+    
+    img_text = ocr(image)
+    if img_text is None:
+        raise Exception("No text found in image")
+    
+    return img_text

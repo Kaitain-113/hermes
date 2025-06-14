@@ -1,23 +1,25 @@
 import typer
-
-from hermes.handlers import get_text_from_image
+from hermes.handlers import (
+    handle_text_to_clipboard,
+    handle_text_to_console,
+    handle_text_to_file
+)
 
 app = typer.Typer()
 
-
 @app.command()
 def text_to_clipboard():
-    get_text_from_image("clipboard")
+    handle_text_to_clipboard()
 
 
 @app.command()
 def text_to_console():
-    get_text_from_image("console")
+    handle_text_to_console()
 
 
 @app.command()
-def text_to_file(file_path):
-    get_text_from_image("file", file_path)
+def text_to_file(file_path: str):
+    handle_text_to_file(file_path)
 
 
 if __name__ == "__main__":

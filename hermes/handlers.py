@@ -1,34 +1,32 @@
-from hermes.media_utils import (
-    extract_text_from_image,
-    get_image_from_clipboard
-)
+from hermes.media_utils import  get_text_from_image
+
 from hermes.services import (
     notifier,
-    copy_to_clipboard,
+    copy_content_to_clipboard,
     create_file
 )
 
 
-def get_text_from_image(output: str, file_path: str):
-    image = get_image_from_clipboard()
-    if image is None:
-        raise Exception("No image found in clipboard")
+def handle_text_to_clipboard():
+    text = get_text_from_image()
+    if copy_content_to_clipboard(text):
+        notifier("Text processed", "Image text is available on clipboard")
+        return
     
-    img_text = extract_text_from_image(image)
-    if img_text is None:
-        raise Exception("No text found in image")
+    notifier("Error", "Unable to copy text to clipboard")
+
+
+def handle_text_to_console():
+    text = get_text_from_image()
+    print("|" + "< IMAGE TEXT >".center(60, "=") + "|\n")
+    print(text)
+    print("=-=" * 20)
+
+
+def handle_text_to_file(file_path: str):
+    text = get_text_from_image()
+    if create_file(file_path, text):
+        notifier("Text processed", "Image text is available on clipboard")
+        return
     
-    match output:
-        case "clipboard":
-            if copy_to_clipboard(img_text):
-                notifier("Text processed", "Image text is available on clipboard")
-            else:
-                notifier("Error", "Unable to copy text to clipboard")
-
-        case "console":
-            print("|" + "< IMAGE TEXT >".center(60, "=") + "|\n")
-            print(img_text)
-            print("=-=" * 20)
-
-        case "file":
-            create_file(file_path, img_text)
+    notifier("Error", "Unable to copy text to clipboard")
